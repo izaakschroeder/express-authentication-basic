@@ -18,7 +18,7 @@
 		"coverage": "istanbul check-coverage --statement 100 --branch 100 --function 100"
 	},
 	"dependencies": {
-		"express-authentication-header": "^0.1.1",
+		"express-authentication-header": "^0.2.0",
 		"lodash": "^2.4.1"
 	},
 	"devDependencies": {
@@ -28,5 +28,8 @@
 		"istanbul": "^0.3.2",
 		"chai": "^1.10.0",
 		"supertest": "^0.15.0"
+	},
+	"peerDependencies": {
+		"express-authentication": "^0.3.0"
 	}
 }
