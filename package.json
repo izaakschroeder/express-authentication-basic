@@ -14,20 +14,21 @@
 	"scripts": {
 		"test": "npm run lint && npm run spec && npm run coverage",
 		"spec": "NODE_PATH=lib NODE_ENV=test istanbul cover node_modules/.bin/_mocha -- -r test/helpers/chai -R spec test/spec",
-		"lint": "eslint --ignore-path .gitignore .",
+		"lint": "./node_modules/.bin/eslint --ignore-path .gitignore .",
 		"coverage": "istanbul check-coverage --statement 100 --branch 100 --function 100"
 	},
 	"dependencies": {
 		"express-authentication-header": "^0.2.0",
-		"lodash": "^2.4.1"
+		"lodash": "^3.9.3"
 	},
 	"devDependencies": {
-		"eslint": "^0.10.0",
-		"eslint-plugin-nodeca": "^1.0.3",
-		"mocha": "^2.0.1",
+		"express": "^4.13.0",
+		"eslint": "^0.23.0",
+		"mocha": "^2.2.5",
 		"istanbul": "^0.3.2",
-		"chai": "^1.10.0",
-		"supertest": "^0.15.0"
+		"chai": "^3.0.0",
+		"supertest": "^1.0.1",
+		"eslint-plugin-filenames": "^0.1.1"
 	},
 	"peerDependencies": {
 		"express-authentication": "^0.3.0"
