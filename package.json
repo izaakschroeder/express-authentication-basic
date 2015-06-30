@@ -22,7 +22,7 @@
 		"lodash": "^2.4.1"
 	},
 	"devDependencies": {
-		"eslint": "^0.10.0",
+		"eslint": "^0.24.0",
 		"eslint-plugin-nodeca": "^1.0.3",
 		"mocha": "^2.0.1",
 		"istanbul": "^0.3.2",
