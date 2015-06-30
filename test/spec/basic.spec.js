@@ -64,6 +64,51 @@ describe('basic', function() {
 		request(this.app).get('/').auth('billy', 'yyy').end(done);
 	});
 
+	it('should handle good simple username/password combos', function(done) {
+		var auth = basic('bob', 'xxx');
+		var app = express();
+		app.use(auth);
+		app.use(function(req, res, next) {
+			expect(req.authenticated).to.equal(true);
+			next();
+		});
+		app.get('/', function hello(req, res, next) {
+			res.status(200).send('OK');
+			next();
+		});
+		request(app).get('/').auth('bob', 'xxx').expect(200).end(done);
+	});
+
+	it('should handle bad simple username/password combos', function(done) {
+		var auth = basic('bob', 'xxx');
+		var app = express();
+		app.use(auth);
+		app.use(function(req, res, next) {
+			expect(req.authenticated).to.equal(false);
+			next();
+		});
+		app.get('/', function hello(req, res, next) {
+			res.status(200).send('OK');
+			next();
+		});
+		request(app).get('/').auth('bob', 'yyy').expect(200).end(done);
+	});
+
+	it('should work with just simple passwords', function(done) {
+		var auth = basic('password');
+		var app = express();
+		app.use(auth);
+		app.use(function(req, res, next) {
+			expect(req.authenticated).to.equal(true);
+			next();
+		});
+		app.get('/', function hello(req, res, next) {
+			res.status(200).send('OK');
+			next();
+		});
+		request(app).get('/').auth('xxx', 'password').expect(200).end(done);
+	});
+
 	it('should set authentication correctly', function(done) {
 		this.app.use(function(req, res, next) {
 			expect(req.authentication).to.deep.equal({ message: 'hello' });
