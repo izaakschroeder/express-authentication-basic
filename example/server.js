@@ -1,6 +1,4 @@
 
-'use strict';
-
 var path = require('path'),
 	express = require('express'),
 	authentication = require('express-authentication'),
@@ -26,7 +24,7 @@ app.get('/', function index(req, res) {
 });
 
 app.get('/secret', login.required(), function secret(req, res) {
-	//var info = login.of(req);
+	// var info = login.of(req);
 	res.status(200).send({ message: 'Secret' });
 });
 

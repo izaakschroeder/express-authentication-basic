@@ -1,6 +1,4 @@
 
-'use strict';
-
 var express = require('express'),
 	request = require('supertest'),
 	basic = require('basic');
@@ -16,6 +14,10 @@ describe('basic', function() {
 			}
 		});
 		this.app = express();
+		this.app.get('/', function hello(req, res, next) {
+			res.status(200).send('OK');
+			next();
+		});
 		this.app.use(this.auth);
 	});
 
@@ -30,9 +32,9 @@ describe('basic', function() {
 	});
 
 	it('should call the callback with correct args', function() {
-		//var stub = sinon.stub(),
+		// var stub = sinon.stub(),
 		//	auth = basic(stub);
-		//request(this.app).get('/');
+		// request(this.app).get('/');
 	});
 
 	it('should set the correct challenge', function(done) {
@@ -71,11 +73,11 @@ describe('basic', function() {
 	});
 
 	it('should pass on errors from verify function', function(done) {
-		var auth = basic(function(challenge, done) {
-			done('my-err');
+		var auth = basic(function(challenge, cb) {
+			cb({ status: 512 });
 		});
 		var app = express();
 		app.use(auth);
-		request(app).get('/').auth('bob', 'xxx').end(done);
+		request(app).get('/').auth('bob', 'xxx').expect(512).end(done);
 	});
 });
