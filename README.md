@@ -14,25 +14,28 @@ With [express-authentication]:
 
 ```javascript
 var express = require('express'),
-	authentication = require('express-authentication'),
+	auth = require('express-authentication'),
 	basic = require('express-authentication-basic');
 
-var app = express(),
-	auth = authentication(),
-	login = basic(function(challenge, callback) {
-		if (challenge.username === 'admin' && challenge.password === 'secret') {
-			callback(null, true, { user: 'charles' });
-		} else {
-			callback(null, false, { error: 'INVALID_PASSWORD' });
-		}
-	});
+var app = express();
 
-app.use(auth);
-app.use(login);
+app.use(basic('bob', 'secret'));
+app.get('/', auth.required(), function respond(req, res) {
+	res.status(200).send(auth.of(req));
+});
 
-app.get('/', authentication.by(login).required(), function(req, res) {
-	var who = authentication.for(login).of(req);
-	res.status(200).send({ user: who.user });
+app.listen(process.env.PORT || 5553);
+```
+
+Use custom callbacks:
+
+```javascript
+var login = basic(function verify(challenge, callback) {
+	if (challenge.username === 'admin' && challenge.password === 'secret') {
+		callback(null, true, { user: 'charles' });
+	} else {
+		callback(null, false, { error: 'INVALID_PASSWORD' });
+	}
 });
 ```
 
