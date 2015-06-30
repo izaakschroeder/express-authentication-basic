@@ -1,6 +1,6 @@
 {
 	"name": "express-authentication-basic",
-	"version": "0.3.0",
+	"version": "0.3.1",
 	"description": "HTTP Basic compatible with express-authentication.",
 	"author": "Izaak Schroeder <izaak.schroeder@gmail.com>",
 	"keywords": [ "express-authentication", "express", "basic", "auth" ],
